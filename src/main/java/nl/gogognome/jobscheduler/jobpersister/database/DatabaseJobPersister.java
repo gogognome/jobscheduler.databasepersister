@@ -1,13 +1,9 @@
 package nl.gogognome.jobscheduler.jobpersister.database;
 
-import nl.gogognome.dataaccess.migrations.DatabaseMigratorDAO;
-import nl.gogognome.dataaccess.transaction.NewTransaction;
 import nl.gogognome.dataaccess.transaction.RequireTransaction;
 import nl.gogognome.jobscheduler.scheduler.Job;
 import nl.gogognome.jobscheduler.scheduler.JobPersister;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PostConstruct;
 
 @Component
 public class DatabaseJobPersister implements JobPersister {
