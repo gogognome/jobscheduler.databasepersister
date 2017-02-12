@@ -49,8 +49,8 @@ public class JobDAOTest {
 
             Job readJob = jobDAO.get(job.getId());
             assertNotNull(readJob);
-            assertEquals(job.getCreationTimestamp(), readJob.getCreationTimestamp());
-            assertEquals(job.getStartTimestamp(), readJob.getStartTimestamp());
+            assertEquals(job.getCreationInstant(), readJob.getCreationInstant());
+            assertEquals(job.getSchedueledAtInstant(), readJob.getSchedueledAtInstant());
             assertEquals(job.getData(), readJob.getData());
             assertEquals(job.getId(), readJob.getId());
             assertEquals(job.getRequesterId(), readJob.getRequesterId());

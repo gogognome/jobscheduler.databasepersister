@@ -22,8 +22,8 @@ class JobDAO extends AbstractDomainClassDAO<Job>{
     @Override
     protected Job getObjectFromResultSet(ResultSetWrapper result) throws SQLException {
         Job job = new Job(result.getString(properties.getIdColumn()));
-        job.setCreationTimestamp(result.getInstant(properties.getCreationTimestampColumn()));
-        job.setStartTimestamp(result.getInstant(properties.getStartTimestampColumn()));
+        job.setCreationInstant(result.getInstant(properties.getCreationTimestampColumn()));
+        job.setSchedueledAtInstant(result.getInstant(properties.getStartTimestampColumn()));
         job.setType(result.getString(properties.getTypeColumn()));
         job.setData(result.getString(properties.getDataColumn()));
         job.setState(result.getEnum(JobState.class, properties.getJobStateColumn()));
@@ -36,8 +36,8 @@ class JobDAO extends AbstractDomainClassDAO<Job>{
     protected NameValuePairs getNameValuePairs(Job job) throws SQLException {
         return new NameValuePairs()
                 .add(properties.getIdColumn(), job.getId())
-                .add(properties.getCreationTimestampColumn(), job.getCreationTimestamp())
-                .add(properties.getStartTimestampColumn(), job.getStartTimestamp())
+                .add(properties.getCreationTimestampColumn(), job.getCreationInstant())
+                .add(properties.getStartTimestampColumn(), job.getSchedueledAtInstant())
                 .add(properties.getTypeColumn(), job.getType())
                 .add(properties.getDataColumn(), job.getData())
                 .add(properties.getJobStateColumn(), job.getState())

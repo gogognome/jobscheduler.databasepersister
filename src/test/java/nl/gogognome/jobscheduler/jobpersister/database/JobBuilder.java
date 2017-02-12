@@ -9,7 +9,7 @@ public class JobBuilder {
 
     public static Job buildJob(String id) {
         Job job = new Job(id);
-        job.setCreationTimestamp(Instant.now());
+        job.setCreationInstant(Instant.now());
         job.setType("Test");
         job.setData("Data");
         job.setState(JobState.IDLE);
