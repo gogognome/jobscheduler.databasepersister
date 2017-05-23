@@ -30,4 +30,9 @@ public class DatabaseJobPersister implements JobPersister {
     public void update(Job job) {
         RequireTransaction.runs(() -> jobDAO.update(job));
     }
+
+    @Override
+    public Iterable<Job> findAllJobs() {
+        return RequireTransaction.returns(() -> jobDAO.findAll());
+    }
 }

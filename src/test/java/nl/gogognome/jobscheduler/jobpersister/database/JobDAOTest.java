@@ -11,10 +11,11 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static java.util.Arrays.asList;
+import static org.junit.Assert.*;
 
 public class JobDAOTest {
 
@@ -59,4 +60,30 @@ public class JobDAOTest {
         });
     }
 
+    @Test
+    public void findAll_noJobsCreated_returnsEmptyList() {
+        List<Job> jobs = NewTransaction.returns(() -> jobDAO.findAll());
+
+        assertTrue(jobs.isEmpty());
+    }
+
+    @Test
+    public void findAll_oneJobCreated_returnsJob() {
+        Job job = NewTransaction.returns(() -> jobDAO.create(JobBuilder.buildJob("1")));
+
+        List<Job> jobs = NewTransaction.returns(() -> jobDAO.findAll());
+
+        assertEquals(asList(job), jobs);
+    }
+
+    @Test
+    public void findAll_multipleJobsCreated_returnsJobs() {
+        Job job1 = NewTransaction.returns(() -> jobDAO.create(JobBuilder.buildJob("1")));
+        Job job2 = NewTransaction.returns(() -> jobDAO.create(JobBuilder.buildJob("2")));
+        Job job3 = NewTransaction.returns(() -> jobDAO.create(JobBuilder.buildJob("3")));
+
+        List<Job> jobs = NewTransaction.returns(() -> jobDAO.findAll());
+
+        assertEquals(asList(job1, job2, job3), jobs);
+    }
 }
