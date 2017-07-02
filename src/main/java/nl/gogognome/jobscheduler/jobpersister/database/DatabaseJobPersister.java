@@ -1,38 +1,37 @@
 package nl.gogognome.jobscheduler.jobpersister.database;
 
-import nl.gogognome.dataaccess.transaction.RequireTransaction;
-import nl.gogognome.jobscheduler.scheduler.Job;
-import nl.gogognome.jobscheduler.scheduler.JobPersister;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.*;
+import nl.gogognome.dataaccess.transaction.*;
+import nl.gogognome.jobscheduler.scheduler.*;
 
 @Component
 public class DatabaseJobPersister implements JobPersister {
 
     private final DatabaseJobPersisterProperties properties;
-    private final JobDAO jobDAO;
+    private final ScheduledJobDAO scheduledJobDAO;
 
-    public DatabaseJobPersister(DatabaseJobPersisterProperties properties, JobDAO jobDAO) {
+    public DatabaseJobPersister(DatabaseJobPersisterProperties properties, ScheduledJobDAO scheduledJobDAO) {
         this.properties = properties;
-        this.jobDAO = jobDAO;
+        this.scheduledJobDAO = scheduledJobDAO;
     }
 
     @Override
-    public void create(Job job) {
-        RequireTransaction.runs(() -> jobDAO.create(job));
+    public void create(ScheduledJob scheduledJob) {
+        RequireTransaction.runs(() -> scheduledJobDAO.create(scheduledJob));
     }
 
     @Override
     public void remove(String jobId) {
-        RequireTransaction.runs(() -> jobDAO.delete(jobId));
+        RequireTransaction.runs(() -> scheduledJobDAO.delete(jobId));
     }
 
     @Override
-    public void update(Job job) {
-        RequireTransaction.runs(() -> jobDAO.update(job));
+    public void update(ScheduledJob scheduledJob) {
+        RequireTransaction.runs(() -> scheduledJobDAO.update(scheduledJob));
     }
 
     @Override
-    public Iterable<Job> findAllJobs() {
-        return RequireTransaction.returns(() -> jobDAO.findAll());
+    public Iterable<ScheduledJob> findAllJobs() {
+        return RequireTransaction.returns(scheduledJobDAO::findAll);
     }
 }
