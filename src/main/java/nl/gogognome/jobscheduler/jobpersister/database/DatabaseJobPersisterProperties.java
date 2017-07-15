@@ -10,12 +10,12 @@ public class DatabaseJobPersisterProperties {
     private String connectionName = "nl.gogognome.jobscheduler.jobingester";
     private String tableName = "NlGogognomeJobs";
     private String idColumn = "id";
-    private String creationInstantColumn = "creationInstant";
     private String scheduledAtInstantColumn = "scheduledAtInstant";
     private String typeColumn = "type";
     private String dataColumn = "data";
     private String jobStateColumn = "state";
     private String requesterIdColumn = "requesterId";
+    private String timeoutAtInstantColumn = "timeoutAtInstant";
 
     private long delayBetweenPolls = 1000L;
 
@@ -41,14 +41,6 @@ public class DatabaseJobPersisterProperties {
 
     public void setIdColumn(String idColumn) {
         this.idColumn = idColumn;
-    }
-
-    public String getCreationInstantColumn() {
-        return creationInstantColumn;
-    }
-
-    public void setCreationInstantColumn(String creationInstantColumn) {
-        this.creationInstantColumn = creationInstantColumn;
     }
 
     public String getScheduledAtInstantColumn() {
@@ -97,5 +89,13 @@ public class DatabaseJobPersisterProperties {
 
     public void setDelayBetweenPolls(long delayBetweenPolls) {
         this.delayBetweenPolls = delayBetweenPolls;
+    }
+
+    public String getTimeoutAtInstantColumn() {
+        return timeoutAtInstantColumn;
+    }
+
+    public void setTimeoutAtInstantColumn(String timeoutAtInstantColumn) {
+        this.timeoutAtInstantColumn = timeoutAtInstantColumn;
     }
 }

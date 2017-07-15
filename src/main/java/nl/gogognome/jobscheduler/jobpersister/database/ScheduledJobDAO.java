@@ -25,12 +25,11 @@ class ScheduledJobDAO extends AbstractDomainClassDAO<ScheduledJob>{
         Job job = new Job(result.getString(properties.getIdColumn()));
         job.setType(result.getString(properties.getTypeColumn()));
         job.setData(result.getBytes(properties.getDataColumn()));
-        job.setCreationInstant(result.getInstant(properties.getCreationInstantColumn()));
+        job.setScheduledAtInstant(result.getInstant(properties.getScheduledAtInstantColumn()));
         ScheduledJob scheduledJob = new ScheduledJob(job);
-        scheduledJob.setSchedueledAtInstant(result.getInstant(properties.getScheduledAtInstantColumn()));
         scheduledJob.setState(result.getEnum(JobState.class, properties.getJobStateColumn()));
         scheduledJob.setRequesterId(result.getString(properties.getRequesterIdColumn()));
-
+        scheduledJob.setTimeoutAtInstant(result.getInstant(properties.getTimeoutAtInstantColumn()));
         return scheduledJob;
     }
 
@@ -38,11 +37,11 @@ class ScheduledJobDAO extends AbstractDomainClassDAO<ScheduledJob>{
     protected NameValuePairs getNameValuePairs(ScheduledJob scheduledJob) throws SQLException {
         return new NameValuePairs()
                 .add(properties.getIdColumn(), scheduledJob.getJob().getId())
-                .add(properties.getCreationInstantColumn(), scheduledJob.getJob().getCreationInstant())
-                .add(properties.getScheduledAtInstantColumn(), scheduledJob.getSchedueledAtInstant())
+                .add(properties.getScheduledAtInstantColumn(), scheduledJob.getJob().getScheduledAtInstant())
                 .add(properties.getTypeColumn(), scheduledJob.getJob().getType())
                 .add(properties.getDataColumn(), scheduledJob.getJob().getData())
                 .add(properties.getJobStateColumn(), scheduledJob.getState())
-                .add(properties.getRequesterIdColumn(), scheduledJob.getRequesterId());
+                .add(properties.getRequesterIdColumn(), scheduledJob.getRequesterId())
+                .add(properties.getTimeoutAtInstantColumn(), scheduledJob.getTimeoutAtInstant());
     }
 }

@@ -21,6 +21,7 @@ import static org.junit.Assert.*;
 public class ScheduledJobDAOTest {
 
     private DatabaseJobPersisterProperties properties = new DatabaseJobPersisterProperties();
+    @SuppressWarnings("unused")
     private Connection connectionToKeepInMemoryDatabaseAlive;
     private ScheduledJobDAO scheduledJobDAO;
 
@@ -51,13 +52,13 @@ public class ScheduledJobDAOTest {
 
             ScheduledJob readScheduledJob = scheduledJobDAO.get(scheduledJob.getJob().getId());
             assertNotNull(readScheduledJob);
-            assertEquals(scheduledJob.getJob().getCreationInstant(), readScheduledJob.getJob().getCreationInstant());
-            assertEquals(scheduledJob.getSchedueledAtInstant(), readScheduledJob.getSchedueledAtInstant());
-            assertEquals(scheduledJob.getJob().getData(), readScheduledJob.getJob().getData());
             assertEquals(scheduledJob.getJob().getId(), readScheduledJob.getJob().getId());
-            assertEquals(scheduledJob.getRequesterId(), readScheduledJob.getRequesterId());
-            assertEquals(scheduledJob.getState(), readScheduledJob.getState());
             assertEquals(scheduledJob.getJob().getType(), readScheduledJob.getJob().getType());
+            assertArrayEquals(scheduledJob.getJob().getData(), readScheduledJob.getJob().getData());
+            assertEquals(scheduledJob.getJob().getScheduledAtInstant(), readScheduledJob.getJob().getScheduledAtInstant());
+            assertEquals(scheduledJob.getState(), readScheduledJob.getState());
+            assertEquals(scheduledJob.getRequesterId(), readScheduledJob.getRequesterId());
+            assertEquals(scheduledJob.getTimeoutAtInstant(), readScheduledJob.getTimeoutAtInstant());
         });
     }
 
